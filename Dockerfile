@@ -8,10 +8,10 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
 # Install pip requirements
-# COPY requirements.txt .
-# RUN python -m pip install -r requirements.txt
+COPY requirements.txt .
+RUN python -m pip install -r requirements.txt
 
-COPY app.py ./
+COPY app.py scry.py ./
 
 # Switching to a non-root user, please refer to https://aka.ms/vscode-docker-python-user-rights
 # RUN useradd appuser && chown -R appuser /app

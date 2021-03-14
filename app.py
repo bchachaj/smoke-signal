@@ -1,17 +1,22 @@
 import sys
-import scry
+import json
+import logging
+from scry import scry
 
 print('loading function')
 
-def main(): 
-    Scry = scry.init()
-    return "params"
+def main(event): 
+    scry()
+    return {
+        "statusCode": 200, 
+        "body": json.dumps('successful request')
+    }
 
 
-def handler():
-    main()
-    return 'Hello from AWS Lambda using Python' + sys.version + '!' 
+def handler(event, context):
+    print(event)
+    payload = main(event)
+    return payload 
 
-# setup only
-handler()
 
+main("hi")
