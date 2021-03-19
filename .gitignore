@@ -3,3 +3,4 @@ deploy.sh
 scry/env
 __pycache__
 .env
+env/

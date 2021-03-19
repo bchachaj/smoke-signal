@@ -6,10 +6,11 @@ from scry import scry
 print('loading function')
 
 def main(event): 
-    scry()
+    scored_entries = scry("GME", "wallstreetbets")
+    print(scored_entries)
     return {
         "statusCode": 200, 
-        "body": json.dumps('successful request')
+        "body": scored_entries
     }
 
 
@@ -18,5 +19,3 @@ def handler(event, context):
     payload = main(event)
     return payload 
 
-
-main("hi")
