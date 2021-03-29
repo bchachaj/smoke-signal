@@ -2,9 +2,12 @@ import sys
 import os
 import jsonpickle
 import nltk
+
+# have to make use of 'tmp' for nltk to work on lambda
+nltk.data.path.append("/tmp")
 from nltk.sentiment.vader import SentimentIntensityAnalyzer as SIA
-nltk.download('vader_lexicon')
-nltk.download('stop_words')
+nltk.download('vader_lexicon', download_dir = "/tmp")
+nltk.download('stopwords', download_dir = "/tmp")
 
 import praw
 from praw.models import MoreComments
@@ -29,7 +32,7 @@ class ScoredEntry:
         self.title = title
         
 def scry(keyword, subreddit="all"):
-    # keyword = "GME"  # searching post titles for match || discussion
+    # searching post titles for match || discussion
     # alernatively load all available comments and look for match
     sia = SIA()
     reddit = praw.Reddit(client_id=client_id,
@@ -39,8 +42,9 @@ def scry(keyword, subreddit="all"):
                          username=username)
 
     sub = reddit.subreddit(subreddit)
-    posts = sub.new(limit=20)
+    posts = sub.new(limit=100)
     eventid = datetime.now().strftime('%Y%m-%d%H-%M%S-') + str(uuid4())
+    # may need 'reproducible' event ID 
 
     result = []
 
